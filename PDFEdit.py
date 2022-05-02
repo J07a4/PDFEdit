@@ -55,6 +55,7 @@ def blank_pages(pdf,pg,n):
     aux=0
     for i in range(len(pg)):
         pdf_writer = PdfFileWriter()
+        #hola mundo
         print('hoja:')
         print(n[i])
         for j in range(n[i]):
