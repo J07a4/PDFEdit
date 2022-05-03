@@ -4,6 +4,8 @@ from pathlib import Path
 import os
 import pdb
 
+from sqlalchemy import true
+
 pdf_path = (
     Path.home()
     / "desktop"
@@ -55,39 +57,20 @@ def blank_pages(pdf,pg,n):
     aux=0
     for i in range(len(pg)):
         pdf_writer = PdfFileWriter()
-        #hola mundo
-        print('hoja:')
-        print(n[i])
         for j in range(n[i]):
             pdf_writer.addBlankPage(width=612, height=792)
         save_pdf(pdf_writer,'auxi')
         pdf_aux = PdfFileReader(str(pdf_path)+'\\output\\auxi.pdf')
-        print('pg+aux:')
-        print(pg[i]+aux)
         save_pdf(introduce_pdf(pdf,pdf_aux,pg[i]+aux),'result')
         pdf = PdfFileReader(str(pdf_path)+'\\output\\result.pdf')
         aux+=n[i]
-        print('contador:')
-        print(aux)
-    pdf=introduce_pdf(pdf,pdf_aux,n[i])
-    save_pdf(pdf,'result')
-        
-    
-    # pg=[0]+pg+[pdf.getNumPages()]
-    # pdf_writer = PdfFileWriter()
-    # for i in range(0,len(pg)-1):
-    #     for j in range(pg[i+1]-pg[i]):
-    #         page = pdf.getPage(pg[i]+j)
-    #         pdf_writer.addPage(page)
-    #     if i!=len(pg)-2:
-    #         for j in range(n[i]):
-    #             pdf_writer.addBlankPage()
-    # with Path("chapter"+str(i+1)+".pdf").open(mode="wb") as output_file:
-    #     pdf_writer.write(output_file)
+    delete_pdf('auxi.pdf')
+    return true
 
+    
 def main():
     #n=input("\n\nPDFEdit.\n\nSelect any opction:\n 1.Split pdf by an array of pages")
-    #delete_pdf('*.pdf')
+    delete_pdf('*.pdf')
     V=[2,5]
     n=[2,1]
     blank_pages(pdf_reader,V,n)
